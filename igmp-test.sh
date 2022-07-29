@@ -1,0 +1,1 @@
+printf '\011\000\004\009\0e0\000\000\0fb' | spicy-driver igmp.spicy
