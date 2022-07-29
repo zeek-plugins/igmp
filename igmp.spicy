@@ -1,12 +1,16 @@
+# Spicy module definig an IGMP parser.
+# See RFC 1112 (IGMPv1), RFC 2236 (IGMPv2) and RFC 3376 (IGMPv3)
+# for information about the IGMP protocol.
+
 module IGMP;
 
 # ICMP message types
 type Type = enum {
-    MQ =   17,  # 0x11
-    MRV1 = 18,  # 0x12
-    MRV2 = 22,  # 0x16
-    LG =   23,  # 0x17
-    MRV3 = 34   # 0x22
+    MQ =   0x11,
+    MRV1 = 0x12,
+    MRV2 = 0x16,
+    LG =   0x17,
+    MRV3 = 0x22
 };
 
 # Version 3 Membership Report Group Record Types
@@ -17,7 +21,7 @@ type GroupType = enum {
     CHANGE_TO_EXCLUDE_MODE = 4,
     ALLOW_NEW_SOURCES =      5,
     BLOCK_OLD_SOURCES =      6
-}
+};
 
 # Generic IGMP message
 public type Message = unit {
@@ -30,17 +34,17 @@ public type Message = unit {
         Type::MRV2 -> mrv2: MessageV2;
         Type::LG   -> lg:   MessageV2;
         Type::MRV3 -> mrv3: MembershipReportV3;
-    }
+    };
 
     on %done { print self; }
 };
 
 # Generic IGMPv2 message
-type MessageV2 = {
+type MessageV2 = unit {
     max_resp_time: uint8;
     checksum:      uint16;
     group_addr:    addr &ipv4;
-}
+};
 
 # msg_type = 0x11: Membership Query
 type MembershipQuery = unit {
@@ -54,7 +58,7 @@ type MembershipQuery = unit {
     };
     qqic:            uint8;
     num_sources:     uint16;
-    sources:         addr[] &ipv4 &size=4*num_sources;
+    sources:         addr[self.num_sources] &ipv4;
     additional_data: bytes &eod;
 };
 
@@ -65,12 +69,13 @@ type MembershipReportV1 = unit {
     group_addr: addr &ipv4;
 };
 
+# Version 3 Group Record
 type Group = unit {
     group_type:     uint8 &convert=GroupType($$);
     aux_data_len:   uint8;
     num_sources:    uint16;
     multicast_addr: addr &ipv4;
-    sources:        addr[] &ipv4 &size=4*num_sources;
+    sources:        addr[self.num_sources] &ipv4;
     aux_data:       bytes &eod;
 };
 
@@ -80,7 +85,7 @@ type MembershipReportV3 = unit {
     checksum:   uint16;
     resv2:      uint16;
     num_groups: uint16;
-    groups:     Group[num_groups];
+    groups:     Group[self.num_groups];
 };
 
 
