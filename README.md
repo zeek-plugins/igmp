@@ -1,2 +1,1 @@
-# igmp
-IGMP parser for Zeek IDS
+# IGMP parser for Zeek IDS
