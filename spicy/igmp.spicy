@@ -32,16 +32,16 @@ public type Message = unit {
     switch ( self.msg_type ) {
         Type::MQ   -> mq:   MembershipQuery;
         Type::MRV1 -> mrv1: MembershipReportV1;
-        Type::MRV2 -> mrv2: MessageV2;
-        Type::LG   -> lg:   MessageV2;
+        Type::MRV2 -> mrv2: MessageV2(True);
+        Type::LG   -> lg:   MessageV2(False);
         Type::MRV3 -> mrv3: MembershipReportV3;
     };
 
-    on %done { print self; }
+    #on %done { print self; }
 };
 
 # Generic IGMPv2 message
-type MessageV2 = unit {
+type MessageV2 = unit(is_membership_report: bool) {
     max_resp_time: uint8;
     checksum:      uint16;
     group_addr:    addr &ipv4;
