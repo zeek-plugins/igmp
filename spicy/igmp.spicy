@@ -1,4 +1,5 @@
-# Spicy module definig an IGMP parser.
+# Spicy grammar for the IGMP protocol.
+# Supports IGMPv1, v2 and v3.
 # See RFC 1112 (IGMPv1), RFC 2236 (IGMPv2) and RFC 3376 (IGMPv3)
 # for information about the IGMP protocol.
 
@@ -87,6 +88,3 @@ type MembershipReportV3 = unit {
     num_groups: uint16;
     groups:     Group[self.num_groups];
 };
-
-
-#packet analyzer IoT::IGMP:

@@ -1,0 +1,4 @@
+# IGMP Spicy analyzer
+
+packet analyzer IoT::IGMP:
+    parse with IGMP::Message;
