@@ -7,11 +7,12 @@ module IGMP;
 
 # ICMP message types
 type Type = enum {
-    MQ =   0x11,
-    MRV1 = 0x12,
-    MRV2 = 0x16,
-    LG =   0x17,
-    MRV3 = 0x22
+    MQ =    0x11,
+    MRV1 =  0x12,
+    MRV2 =  0x16,
+    LG =    0x17,
+    MRV3 =  0x22,
+    ERROR = 0x00
 };
 
 # Version 3 Membership Report Group Record Types
@@ -43,45 +44,51 @@ public type Message = unit {
 
     ### FIRST STEP: verify message checksum
 
-    var checksum_acc: uint32 = uint32(0);  # Checksum verification accumulator
-    first_2_bytes:    uint16 { self.checksum_acc = self.first_2_bytes; }  # Add first 2 bytes to accumulator
-    checksum:         uint16;  # Checksum value
-    remaining_bytes:  uint16[] &eod;  # All remaining bytes until the end, grouped by 2 bytes
+    var computed_checksum: uint32 = uint32(0);  # Checksum verification accumulator
+    var is_checksum_ok:    bool = False;  # Indicates if the checksum verification is OK or not
+    first_2_bytes:         uint16 { self.computed_checksum = self.first_2_bytes; }  # Add first 2 bytes to accumulator
+    transmitted_checksum:  uint16;  # Transmitted checksum value
+    remaining_bytes:       uint16[] &eod;  # All remaining bytes until the end, grouped by 2 bytes
     # TODO: add error handling if message does not contain an even number of bytes
     
     # Add remaining bytes to accumulator
     on remaining_bytes foreach {
-        self.checksum_acc += $$;
-        if ( self.checksum_acc >= uint32(0x10000) ) {
+        self.computed_checksum += $$;
+        if ( self.computed_checksum >= uint32(0x10000) ) {
             # If accumulator exceeds 0x10000, subtract 0xffff
-            self.checksum_acc -= uint32(0xffff);
+            self.computed_checksum -= uint32(0xffff);
         }
     }
 
-    # First pass finished, compare checksum values
+    # First pass finished
     on remaining_bytes {
-        self.checksum_acc = ~cast<uint16>(self.checksum_acc);
-        if ( self.checksum_acc != self.checksum ) {
-            # Checksum values differ, throw exception
-            throw "Checksum verification failed ! Computed: %d, transmitted: %d" % (self.checksum_acc, self.checksum);
-        }
+        # Compare checksum values
+        self.computed_checksum = ~cast<uint16>(self.computed_checksum);
+        self.is_checksum_ok = self.transmitted_checksum == self.computed_checksum;
+        # Backtrack to beggining of message
         self.set_input(self.start);
     }
 
-    ### SECOND STEP: Checksum verification passed, parse message
+    ### SECOND STEP: Parse message if checksum verification passed
 
-    msg_type:      uint8 &convert=Type($$);
+    msg_type: uint8 &convert=Type($$) { 
+        if ( !self.is_checksum_ok ) {
+            self.msg_type = Type::ERROR;
+        }
+     }
 
     # Determine message type
     switch ( self.msg_type ) {
-        Type::MQ   -> mq:   MembershipQuery;
-        Type::MRV1 -> mrv1: MembershipReportV1;
-        Type::MRV2 -> mrv2: MessageV2(True);
-        Type::LG   -> lg:   MessageV2(False);
-        Type::MRV3 -> mrv3: MembershipReportV3;
+        Type::MQ    -> mq:    MembershipQuery;
+        Type::MRV1  -> mrv1:  MembershipReportV1;
+        Type::MRV2  -> mrv2:  MessageV2(True);
+        Type::LG    -> lg:    MessageV2(False);
+        Type::MRV3  -> mrv3:  MembershipReportV3;
+        *           -> :      void;
     };
 
     on %done { print self; }
+
 };
 
 # Generic IGMPv2 message

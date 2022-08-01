@@ -10,13 +10,15 @@ packet analyzer IoT::IGMP:
 
 ########## EVENTS ##########
 
-# Generated for every IGMP message.
+# Generated for every processed IGMP message.
 # :param $packet: raw packet header
 on IGMP::Message -> event igmp::message($packet);
 
 # Generated for every IGMP message which did not pass checksum verification.
 # :param $packet: raw packet header
-on IGMP::Message::%error -> event igmp::bad_checksum($packet);
+# :param self.checksum: checksum value transmitted in the message
+# :param self.computed_checksum: checksum value computed over the message
+on IGMP::Message if ( !self.is_checksum_ok ) -> event igmp::bad_checksum($packet, self.transmitted_checksum, self.computed_checksum);
 
 # Generated for every IGMP Membership Query.
 # :param $packet: raw packet header

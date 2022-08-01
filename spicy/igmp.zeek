@@ -76,8 +76,16 @@ event igmp::membership_report_v3(pkt_hdr: raw_pkt_hdr,
     #print "    Groups", groups;
     }
 
+# Triggered: IGMP Message with bad checksum
+event igmp::bad_checksum(pkt_hdr: raw_pkt_hdr,
+                         transmitted_checksum: count,
+                         computed_checksum: count)
+    {
+    print fmt("Bad checksum ! Transmitted: 0x%x, Computed: 0x%x", transmitted_checksum, computed_checksum);
+    }
+
 ##### STOP #####
 event zeek_done()
     {
-    #print "STOP";
+    print "STOP";
     }
