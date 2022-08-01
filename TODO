@@ -1,3 +1,2 @@
-- Implement checksum check
 - Try to export IP address instead of full packet header
 - Build Zeek plugin
