@@ -22,9 +22,16 @@ event igmp::membership_report_v2(pkt_hdr: raw_pkt_hdr,
     }
 
 event igmp::leave_group(pkt_hdr: raw_pkt_hdr,
-                                 group_addr: addr)
+                        group_addr: addr)
     {
     print fmt("IGMP Version 2 Leave Group %s", group_addr);
+    }
+
+event igmp::membership_report_v3(pkt_hdr: raw_pkt_hdr,
+                                 num_groups: count)
+    {
+    print "IGMP Version 3 Membership Report";
+    print fmt("    Number of groups: %d", num_groups);
     }
 
 event zeek_done()

@@ -24,6 +24,16 @@ type GroupType = enum {
     BLOCK_OLD_SOURCES =      6
 };
 
+# Version 3 Membership Report Group Record
+type Group = unit {
+    group_type:     uint8 &convert=GroupType($$);
+    aux_data_len:   uint8;
+    num_sources:    uint16;
+    multicast_addr: addr &ipv4;
+    sources:        addr[self.num_sources] &ipv4;
+    aux_data:       bytes &eod;
+};
+
 # Generic IGMP message
 public type Message = unit {
     msg_type:      uint8 &convert=Type($$);
@@ -65,26 +75,16 @@ type MembershipQuery = unit {
 
 # msg_type = 0x12: Version 1 Membership Report
 type MembershipReportV1 = unit {
-    unused:     uint8;
+    :           uint8;  # Unused (1 byte)
     checksum:   uint16;
     group_addr: addr &ipv4;
 };
 
-# Version 3 Group Record
-type Group = unit {
-    group_type:     uint8 &convert=GroupType($$);
-    aux_data_len:   uint8;
-    num_sources:    uint16;
-    multicast_addr: addr &ipv4;
-    sources:        addr[self.num_sources] &ipv4;
-    aux_data:       bytes &eod;
-};
-
 # msg_type = 0x22: Version 3 Membership Report
 type MembershipReportV3 = unit {
-    resv1:      uint8;
+    :           void &size=1;  # Reserved (1 byte)
     checksum:   uint16;
-    resv2:      uint16;
+    :           void &size=2;  # Reserved (2 bytes)
     num_groups: uint16;
     groups:     Group[self.num_groups];
 };
