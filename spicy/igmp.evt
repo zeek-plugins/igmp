@@ -1,6 +1,5 @@
 # IGMP Spicy analyzer and events
 
-import zeek;
 import IGMP;
 
 

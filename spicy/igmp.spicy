@@ -36,6 +36,7 @@ type Group = unit {
 
 # Generic IGMP message
 public type Message = unit {
+
     msg_type:      uint8 &convert=Type($$);
 
     # Determine message type
