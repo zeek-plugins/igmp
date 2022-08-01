@@ -37,6 +37,39 @@ type Group = unit {
 # Generic IGMP message
 public type Message = unit {
 
+    # Iterator, to parse message after checksum has been verified
+    var start: iterator<stream>;
+    on %init { self.start = self.input(); }
+
+    ### FIRST STEP: verify message checksum
+
+    var checksum_acc: uint32 = uint32(0);  # Checksum verification accumulator
+    first_2_bytes:    uint16 { self.checksum_acc = self.first_2_bytes; }  # Add first 2 bytes to accumulator
+    checksum:         uint16;  # Checksum value
+    remaining_bytes:  uint16[] &eod;  # All remaining bytes until the end, grouped by 2 bytes
+    # TODO: add error handling if message does not contain an even number of bytes
+    
+    # Add remaining bytes to accumulator
+    on remaining_bytes foreach {
+        self.checksum_acc += $$;
+        if ( self.checksum_acc >= uint32(0x10000) ) {
+            # If accumulator exceeds 0x10000, subtract 0xffff
+            self.checksum_acc -= uint32(0xffff);
+        }
+    }
+
+    # First pass finished, compare checksum values
+    on remaining_bytes {
+        self.checksum_acc = ~cast<uint16>(self.checksum_acc);
+        if ( self.checksum_acc != self.checksum ) {
+            # Checksum values differ, throw exception
+            throw "Checksum verification failed ! Computed: %d, transmitted: %d" % (self.checksum_acc, self.checksum);
+        }
+        self.set_input(self.start);
+    }
+
+    ### SECOND STEP: Checksum verification passed, parse message
+
     msg_type:      uint8 &convert=Type($$);
 
     # Determine message type
@@ -48,7 +81,7 @@ public type Message = unit {
         Type::MRV3 -> mrv3: MembershipReportV3;
     };
 
-    #on %done { print self; }
+    on %done { print self; }
 };
 
 # Generic IGMPv2 message

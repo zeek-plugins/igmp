@@ -1,5 +1,3 @@
 - Implement checksum check
-    - Use "backtracking" with try/backtrack
-    - Use a hook to compute checksum
 - Try to export IP address instead of full packet header
 - Build Zeek plugin

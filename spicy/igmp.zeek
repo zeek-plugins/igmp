@@ -49,21 +49,21 @@ event igmp::message(pkt_hdr: raw_pkt_hdr)
 # Triggered: IGMP Membership query
 event igmp::membership_query(pkt_hdr: raw_pkt_hdr, group_addr: addr)
     {
-    print fmt("IGMP Membership Query for group %s", group_addr);
+    #print fmt("IGMP Membership Query for group %s", group_addr);
     }
 
 # Triggered: IGMP Version 2 Membership Report 
 event igmp::membership_report_v2(pkt_hdr: raw_pkt_hdr,
                                  group_addr: addr)
     {
-    print fmt("IGMP Version 2 Membership Report for group %s", group_addr);
+    #print fmt("IGMP Version 2 Membership Report for group %s", group_addr);
     }
 
 # Triggered: IGMP Leave Group message
 event igmp::leave_group(pkt_hdr: raw_pkt_hdr,
                         group_addr: addr)
     {
-    print fmt("IGMP Version 2 Leave Group %s", group_addr);
+    #print fmt("IGMP Version 2 Leave Group %s", group_addr);
     }
 
 # Triggered: IGMP Version 3 Membership Report
@@ -71,13 +71,13 @@ event igmp::membership_report_v3(pkt_hdr: raw_pkt_hdr,
                                  num_groups: count,
                                  groups: vector of MulticastGroup)
     {
-    print "IGMP Version 3 Membership Report";
-    print fmt("    Number of groups: %d", num_groups);
-    print "    Groups", groups;
+    #print "IGMP Version 3 Membership Report";
+    #print fmt("    Number of groups: %d", num_groups);
+    #print "    Groups", groups;
     }
 
 ##### STOP #####
 event zeek_done()
     {
-    print "STOP";
+    #print "STOP";
     }
