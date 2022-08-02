@@ -3,7 +3,6 @@
 
 
 ########## VARIABLES ##########
-redef ignore_checksum = T;  # Don't verify packet checksums
 
 
 ########## EVENTS ##########

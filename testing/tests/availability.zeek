@@ -1,3 +1,2 @@
-# @TEST-EXEC: zeek -NN | grep -qi ANALYZER_SPICY_Message
-#
-# @TEST-DOC: Check that the Message analyzer is available.
+@TEST-DOC: Check that the IGMP packet analyzer is available.
+@TEST-EXEC: zeek -NN | grep -qi IGMP
