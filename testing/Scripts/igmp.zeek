@@ -1,10 +1,3 @@
-########## IMPORTS ##########
-@load /home/fdekeers/UCL/Doctorat/Tools/zeek/igmp/scripts
-
-
-########## VARIABLES ##########
-
-
 ########## EVENTS ##########
 
 ##### START #####

@@ -1,1 +1,1 @@
-# IGMP parser for Zeek IDS
+# IGMP packet analyzer in Spicy

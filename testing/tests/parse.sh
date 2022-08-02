@@ -1,4 +1,4 @@
-# @TEST-DOC: Verify parsing of IGMP messages
+# @TEST-DOC: Verify parsing of IGMP messages.
 # @TEST-EXEC: bash %INPUT
 
 
@@ -33,3 +33,5 @@ btest-diff $MRV3_OUTPUT
 # Membership Report Version 2 with bad checksum
 printf $BAD_CHECKSUM | spicy-dump $COMPILED_FILE 2>&1 >> $CHECKSUM_OUTPUT
 btest-diff $CHECKSUM_OUTPUT
+
+
