@@ -2,8 +2,3 @@
 # @TEST-EXEC: zeek -r $TRACES/igmp.pcap $PACKAGE %INPUT >output
 # @TEST-EXEC: btest-diff output
 # @TEST-EXEC: btest-diff conn.log
-
-event zeek_done()
-	{
-	print "Goodbye world!";
-	}

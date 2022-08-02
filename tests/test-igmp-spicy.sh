@@ -8,4 +8,4 @@ LEAVE_GROUP='\x17\x00\x08\x04\xe0\x00\x00\xfb'
 MEMBERSHIP_REPORT_V3='\x22\x00\xea\x03\x00\x00\x00\x01\x04\x00\x00\x00\xef\xff\xff\xfa'
 BAD_CHECKSUM='\x16\x00\x09\x05\xe0\x00\x00\xfb'
 
-printf $MEMBERSHIP_REPORT_V2 | spicy-driver "$SCRIPT_DIR/../../analyzer/igmp.spicy"
+printf $MEMBERSHIP_REPORT_V2 | spicy-dump "$SCRIPT_DIR/../analyzer/igmp.spicy"
