@@ -2,11 +2,11 @@
 
 # IGMP message types
 type IgmpMessageType: enum {
-    MQ =   0x11,
-    MRV1 = 0x12,
-    MRV2 = 0x16,
-    LG =   0x17,
-    MRV3 = 0x22
+    MEMBERSHIP_QUERY     = 0x11,
+    MEMBERSHIP_REPORT_V1 = 0x12,
+    MEMBERSHIP_REPORT_V2 = 0x16,
+    LEAVE_GROUP          = 0x17,
+    MEMBERSHIP_REPORT_V3 = 0x22
 };
 
 # IGMP Version 3 Membership Report Group record types
@@ -41,9 +41,9 @@ event zeek_init()
     }
 
 # Triggered: IGMP Message (any type)
-event igmp::message(pkt_hdr: raw_pkt_hdr)
+event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IgmpMessageType)
     {
-    ;
+    print fmt("IGMP Message of type %s", msg_type);
     }
 
 # Triggered: IGMP Membership query

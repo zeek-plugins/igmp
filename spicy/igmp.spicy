@@ -7,22 +7,22 @@ module IGMP;
 
 # ICMP message types
 type Type = enum {
-    MQ =    0x11,
-    MRV1 =  0x12,
-    MRV2 =  0x16,
-    LG =    0x17,
-    MRV3 =  0x22,
-    ERROR = 0x00
+    MEMBERSHIP_QUERY     = 0x11,
+    MEMBERSHIP_REPORT_V1 = 0x12,
+    MEMBERSHIP_REPORT_V2 = 0x16,
+    LEAVE_GROUP          = 0x17,
+    MEMBERSHIP_REPORT_V3 = 0x22,
+    ERROR                = 0x00
 };
 
 # Version 3 Membership Report Group Record Types
 type GroupType = enum {
-    MODE_IS_INCLUDE =        1,
-    MODE_IS_EXCLUDE =        2,
+    MODE_IS_INCLUDE        = 1,
+    MODE_IS_EXCLUDE        = 2,
     CHANGE_TO_INCLUDE_MODE = 3,
     CHANGE_TO_EXCLUDE_MODE = 4,
-    ALLOW_NEW_SOURCES =      5,
-    BLOCK_OLD_SOURCES =      6
+    ALLOW_NEW_SOURCES      = 5,
+    BLOCK_OLD_SOURCES      = 6
 };
 
 # Version 3 Membership Report Group Record
@@ -79,12 +79,12 @@ public type Message = unit {
 
     # Determine message type
     switch ( self.msg_type ) {
-        Type::MQ    -> mq:    MembershipQuery;
-        Type::MRV1  -> mrv1:  MembershipReportV1;
-        Type::MRV2  -> mrv2:  MessageV2(True);
-        Type::LG    -> lg:    MessageV2(False);
-        Type::MRV3  -> mrv3:  MembershipReportV3;
-        *           -> :      void;
+        Type::MEMBERSHIP_QUERY     -> mq:    MembershipQuery;
+        Type::MEMBERSHIP_REPORT_V1 -> mrv1:  MembershipReportV1;
+        Type::MEMBERSHIP_REPORT_V2 -> mrv2:  MessageV2(True);
+        Type::LEAVE_GROUP          -> lg:    MessageV2(False);
+        Type::MEMBERSHIP_REPORT_V3 -> mrv3:  MembershipReportV3;
+        *                          -> :      void;
     };
 
     on %done { print self; }
