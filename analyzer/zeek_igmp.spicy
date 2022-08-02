@@ -6,10 +6,10 @@ import IGMP;
 import zeek;
 
 # TODO: For DPD, protocol analyzers should confirm or reject a protocol.
-#on IGMP::Message::%done {
-#    zeek::confirm_protocol();
-#}
+on IGMP::Message::%done {
+    zeek::confirm_protocol();
+}
 
-#on IGMP::Message::%error {
-#    zeek::reject_protocol("error while parsing Message record");
-#}
+on IGMP::Message::%error {
+    zeek::reject_protocol("error while parsing Message record");
+}
