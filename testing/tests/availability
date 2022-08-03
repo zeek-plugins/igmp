@@ -1,0 +1,2 @@
+@TEST-DOC: Check that the IGMP packet analyzer is available
+@TEST-EXEC: zeek -NN | grep -qi ANALYZER_SPICY__IGMP
