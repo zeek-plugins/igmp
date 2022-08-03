@@ -38,8 +38,9 @@ event zeek_init() &priority=5
 # Logs the IGMP message.
 # :param pkt_hdr:  raw packet header
 # :param msg_type: IGMP message type
-event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IGMP::IgmpMessageType) &priority=-5
+event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IgmpMessageType) &priority=-5
 	{
+	print msg_type;
 	Log::write(IGMP::LOG, IgmpLog(
 		$timestamp = network_time(),
 		$src_addr  = pkt_hdr$ip$src,

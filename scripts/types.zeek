@@ -10,7 +10,8 @@ export {
         MEMBERSHIP_REPORT_V1 = 0x12,
         MEMBERSHIP_REPORT_V2 = 0x16,
         LEAVE_GROUP          = 0x17,
-        MEMBERSHIP_REPORT_V3 = 0x22
+        MEMBERSHIP_REPORT_V3 = 0x22,
+        BAD_CHECKSUM         = 0x00
     };
 
     # IGMP Version 3 Membership Report Group record types

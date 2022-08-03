@@ -1,2 +1,3 @@
-*.hlto
 .vscode
+*.hlto
+*.log

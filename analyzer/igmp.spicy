@@ -12,7 +12,7 @@ type Type = enum {
     MEMBERSHIP_REPORT_V2 = 0x16,
     LEAVE_GROUP          = 0x17,
     MEMBERSHIP_REPORT_V3 = 0x22,
-    ERROR                = 0x00
+    BAD_CHECKSUM         = 0x00  # Dummy type, indicating a bad checksum
 };
 
 # Version 3 Membership Report Group Record Types
@@ -73,7 +73,7 @@ public type Message = unit {
 
     msg_type: uint8 &convert=Type($$) { 
         if ( !self.is_checksum_ok ) {
-            self.msg_type = Type::ERROR;
+            self.msg_type = Type::BAD_CHECKSUM;
         }
      }
 
@@ -84,7 +84,7 @@ public type Message = unit {
         Type::MEMBERSHIP_REPORT_V2 -> mrv2:  MessageV2(True);
         Type::LEAVE_GROUP          -> lg:    MessageV2(False);
         Type::MEMBERSHIP_REPORT_V3 -> mrv3:  MembershipReportV3;
-        *                          -> :      void;
+        Type::BAD_CHECKSUM         -> :      void;
     };
 
     #on %done { print self; }
