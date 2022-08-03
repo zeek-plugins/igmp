@@ -64,13 +64,42 @@ If you updated the `ZEEKPATH` environment variable as explained before, the path
 ### Types
 
 The plugin defines the following types:
-- `IGMP::IgmpMessageType`
-  - Represents an IGMP Message Type.
-  - This plugin includes a dummy IGMP message type, `IGMP::BAD_CHECKSUM`, that is indicated when checksum verification failed on the message.
-- `IGMP::MulticastGroup`
-  - Represents an IGMPv3 Multicast Group.
-- `IGMP::GroupType`
-  - Represents an IGMPv3 Multicast Group type.
+```zeek
+IGMP::IgmpMessageType: enum {
+  MEMBERSHIP_QUERY     = 0x11,
+  MEMBERSHIP_REPORT_V1 = 0x12,
+  MEMBERSHIP_REPORT_V2 = 0x16,
+  LEAVE_GROUP          = 0x17,
+  MEMBERSHIP_REPORT_V3 = 0x22,
+  BAD_CHECKSUM         = 0x00
+}
+```
+- Represents an IGMP Message Type.
+- This plugin includes a dummy IGMP message type, `IGMP::BAD_CHECKSUM`, that is indicated when checksum verification failed on the message.
+
+```zeek
+IGMP::MulticastGroup: record {
+  group_type:     GroupType;
+  aux_data_len:   count;
+  num_sources:    count;
+  multicast_addr: addr;
+  sources:        vector of addr;
+  aux_data:       string;
+}
+```
+- Represents an IGMPv3 Multicast Group.
+
+```zeek
+IGMP::GroupType: enum {
+  MODE_IS_INCLUDE        = 1,
+  MODE_IS_EXCLUDE        = 2,
+  CHANGE_TO_INCLUDE_MODE = 3,
+  CHANGE_TO_EXCLUDE_MODE = 4,
+  ALLOW_NEW_SOURCES      = 5,
+  BLOCK_OLD_SOURCES      = 6
+}
+```
+- Represents an IGMPv3 Multicast Group type.
 
 Please consult [RFC 1112](https://datatracker.ietf.org/doc/html/rfc1112) (IGMPv1), [RFC 2236](https://datatracker.ietf.org/doc/html/rfc2236) (IGMPv2) and [RFC 3376](https://datatracker.ietf.org/doc/html/rfc3376) (IGMPv3) for more information.
 
