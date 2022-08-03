@@ -1,3 +1,5 @@
+all: remove install
+
 .PHONY: install remove test clean
 
 install:
