@@ -12,6 +12,7 @@ IGMP Version 3 Membership Report
 IGMP Version 3 Membership Report
     Number of groups: 1
     Groups, [[group_type=IGMP::CHANGE_TO_EXCLUDE_MODE, aux_data_len=0, num_sources=0, multicast_addr=239.255.255.250, sources=[], aux_data=]]
+Bad checksum ! Transmitted: 0x905, Computed: 0x904
 IGMP Version 2 Membership Report for group 224.0.0.251
 IGMP Version 2 Leave Group 224.0.0.251
 IGMP Version 2 Membership Report for group 224.0.0.251
