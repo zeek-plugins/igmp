@@ -19,7 +19,7 @@ Everything should be installed correctly if you install the latest [Zeek](https:
 
 A simple call to `make install` from the repository's root directory should install the package and run unit tests.
 You can also use the `zkg` command directly:
-```shell
+```bash
 zkg install $REPOSITORY_ROOT_DIRECTORY
 ```
 
