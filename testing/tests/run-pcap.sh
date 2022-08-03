@@ -17,5 +17,5 @@ OUTPUT_BAD_CHECKSUM="zeek-output-bad-checksum.txt"
 zeek -b -r $PCAP ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT
 btest-diff $OUTPUT
 # Pcap with bad checksum analysis
-zeek -b -r $PCAP_BAD_CHECKSUM ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT_BAD_CHECKSUM
+zeek -b -r $PCAP_BAD_CHECKSUM ${SCRIPTS}/igmp.zeek > $OUTPUT_BAD_CHECKSUM
 btest-diff $OUTPUT_BAD_CHECKSUM
