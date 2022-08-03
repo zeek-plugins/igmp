@@ -71,7 +71,7 @@ public type Message = unit {
 
     ### SECOND STEP: Parse message if checksum verification passed
 
-    msg_type: uint8 &requires=self.is_checksum_ok &convert=Type($$) { 
+    msg_type: uint8 &convert=Type($$) { 
         if ( !self.is_checksum_ok ) {
             self.msg_type = Type::ERROR;
         }
@@ -87,8 +87,7 @@ public type Message = unit {
         *                          -> :      void;
     };
 
-    on %error { self.msg_type = Type::ERROR; }
-    on %done { print self; }
+    #on %done { print self; }
 
 };
 
