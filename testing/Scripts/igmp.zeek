@@ -1,5 +1,3 @@
-redef ignore_checksums = T;
-
 ########## EVENTS ##########
 
 ##### START #####
