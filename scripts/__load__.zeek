@@ -17,5 +17,5 @@
 # That's processed only on explicit `@load IoT/mdns`.
 
 @load ./types
-@load ./main
+#@load ./main
 #@load-sigs ./dpd.sig
