@@ -1,8 +1,10 @@
 [package]
+credits = François De Keersmaeker <francois.dekeersmaeker@uclouvain.be>
+tags = igmp, zeek, spicy, packet analyzer, ids
 script_dir = scripts
 test_command = cd testing && btest -c btest.cfg
 summary = IGMP packet analyzer in Spicy
-description = A packet analyzer for the IGMP protocol, written in Spicy.
+description = A Spicy-based packet analyzer for the IGMP protocol.
 	Supports IGMPv1, v2 and v3.
 depends = 
 	zeek >=4.0.0
