@@ -8,7 +8,6 @@ export {
 		src_addr:  addr &log;  # Source IP address
 		dst_addr:  addr &log;  # Destination IP address
 		msg_type:  IgmpMessageType &log;  # Message type
-		checksum:  count &log;  # Checksum
 	};
 
 	## Event that can be handled to access the IGMP record as it is sent on
@@ -39,13 +38,12 @@ event zeek_init() &priority=5
 # Logs the IGMP message.
 # :param pkt_hdr:  raw packet header
 # :param msg_type: IGMP message type
-event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IGMP::IgmpMessageType, checksum: count) &priority=-5
+event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IGMP::IgmpMessageType) &priority=-5
 	{
 	Log::write(IGMP::LOG, IgmpLog(
 		$timestamp = network_time(),
 		$src_addr  = pkt_hdr$ip$src,
 		$dst_addr  = pkt_hdr$ip$dst,
-		$msg_type  = msg_type,
-		$checksum  = checksum
+		$msg_type  = msg_type
 	));
 	}
