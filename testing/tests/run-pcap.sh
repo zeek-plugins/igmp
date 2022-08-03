@@ -9,6 +9,7 @@ PCAP="${TRACES}/igmp.pcap"
 PCAP_BAD_CHECKSUM="${TRACES}/igmp-bad-checksum.pcap"
 OUTPUT="zeek-output.txt"
 OUTPUT_BAD_CHECKSUM="zeek-output-bad-checksum.txt"
+LOG_FILE="igmp.log"
 
 
 ##### COMMANDS #####
@@ -16,6 +17,8 @@ OUTPUT_BAD_CHECKSUM="zeek-output-bad-checksum.txt"
 # Pcap with good checksum analysis
 zeek -b -r $PCAP ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT
 btest-diff $OUTPUT
+btest-diff LOG_FILE
 # Pcap with bad checksum analysis
 zeek -b -r $PCAP_BAD_CHECKSUM ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT_BAD_CHECKSUM
 btest-diff $OUTPUT_BAD_CHECKSUM
+btest-diff LOG_FILE
