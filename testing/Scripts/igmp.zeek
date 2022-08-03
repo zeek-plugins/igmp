@@ -7,7 +7,7 @@ event zeek_init()
     }
 
 # Triggered: IGMP Message (any type)
-event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IGMP::IgmpMessageType)
+event igmp::message(pkt_hdr: raw_pkt_hdr, msg_type: IGMP::IgmpMessageType, checksum: count)
     {
     #print fmt("IGMP Message of type %s", msg_type);
     }
