@@ -1,10 +1,10 @@
 .PHONY: install remove test clean
 
 install:
-	zkg --user install .
+	zkg --user -vvv install .
 
 remove:
-	zkg --user remove .
+	zkg --user -vvv remove .
 
 test:
 	make -C testing
