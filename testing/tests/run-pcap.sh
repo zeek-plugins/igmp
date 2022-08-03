@@ -19,5 +19,5 @@ spicyz $ANALYZER_DIR/igmp.spicy $ANALYZER_DIR/igmp.evt -o igmp.hlto
 zeek -b -r $PCAP igmp.hlto ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT
 btest-diff $OUTPUT
 # Pcap with bad checksum analysis
-zeek -b -r $PCAP_BAD_CHECKSUM igmp.hlto ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT_BAD_CHECKSUM
+zeek -b -r $PCAP_BAD_CHECKSUM ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT_BAD_CHECKSUM
 btest-diff $OUTPUT_BAD_CHECKSUM
