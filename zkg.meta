@@ -17,4 +17,3 @@ features = spicy-analyzer
 [template_vars]
 name = Message
 namespace = IGMP
-
