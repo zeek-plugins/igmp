@@ -13,8 +13,6 @@ OUTPUT_BAD_CHECKSUM="zeek-output-bad-checksum.txt"
 
 ##### COMMANDS #####
 
-# Compilation
-#spicyz $ANALYZER_DIR/igmp.spicy $ANALYZER_DIR/igmp.evt -o igmp.hlto
 # Pcap with good checksum analysis
 zeek -b -r $PCAP ${PACKAGE} ${SCRIPTS}/igmp.zeek > $OUTPUT
 btest-diff $OUTPUT
