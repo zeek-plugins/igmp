@@ -9,5 +9,5 @@ IGMP::Message {
     57344
     251
   ]
-  msg_type: ERROR
+  msg_type: BAD_CHECKSUM
 }
