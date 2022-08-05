@@ -134,6 +134,11 @@ For every message, it logs the following information:
   - This analyzer includes a dummy IGMP message type, `IGMP::BAD_CHECKSUM`, that is indicated when checksum verification failed on the message.
 
 
+## License
+
+This project is licensed under the BSD license. See the [LICENSE](LICENSE) file for details.
+
+
 ## Contributors
 
 - François De Keersmaeker
