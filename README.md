@@ -6,7 +6,7 @@ It is packed as a Zeek package, which can be easily installed with [Zeek Package
 The IGMP protocol is defined in the following RFCs:
 - IGMPv1: [RFC 1112](https://datatracker.ietf.org/doc/html/rfc1112)
 - IGMPv2: [RFC 2236](https://datatracker.ietf.org/doc/html/rfc2236)
-- IGMPv2: [RFC 3376](https://datatracker.ietf.org/doc/html/rfc3376)
+- IGMPv3: [RFC 3376](https://datatracker.ietf.org/doc/html/rfc3376)
 
 
 ## Installation
