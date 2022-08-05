@@ -1,3 +1,7 @@
+##! Implements base functionality for IGMP analysis.
+##! Registers the IGMP packet analyzer.
+##! Generates the IGMP.log file.
+
 module IGMP;
 
 export {
