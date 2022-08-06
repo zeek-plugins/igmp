@@ -1,0 +1,38 @@
+# This workflow will execute the accompanying btests
+
+name: btest CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+on:
+  push:
+  pull_request:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  test:
+    name: btests on Linux with zeek
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Install Zeek dependencies
+      run: sudo $GITHUB_WORKSPACE/.ci_scripts/install_dependencies.sh
+
+    - name: Install Zeek deb package
+      run: sudo $GITHUB_WORKSPACE/.ci_scripts/install_zeek.sh
+
+    - name: Ensure Zeek was correctly installed
+      run: PATH="/opt/zeek/bin:/opt/zeek/bin:$PATH" zeek --version
+
+    - name: Install zkg and other pip packages
+      run: sudo $GITHUB_WORKSPACE/.ci_scripts/install_zkg.sh
+
+    - name: Run test and zkg install
+      run: sudo $GITHUB_WORKSPACE/.ci_scripts/test.sh
