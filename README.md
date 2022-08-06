@@ -27,7 +27,8 @@ Everything should be installed correctly if you install the latest [Zeek](https:
 A simple call to `make install` from the repository's root directory should install the package and run unit tests.
 You can also use the `zkg` command directly:
 ```shell
-zkg install $REPOSITORY_ROOT_DIRECTORY
+zkg install https://github.com/zeek-plugins/igmp  # to install as super user
+zkg --user install https://github.com/zeek-plugins/igmp  # to install in user space
 ```
 
 You might have to update the `ZEEKPATH` and `ZEEK_PLUGIN_PATH` environmental variables.
