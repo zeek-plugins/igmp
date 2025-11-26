@@ -8,10 +8,23 @@ The IGMP protocol is defined in the following RFCs:
 - IGMPv2: [RFC 2236](https://datatracker.ietf.org/doc/html/rfc2236)
 - IGMPv3: [RFC 3376](https://datatracker.ietf.org/doc/html/rfc3376)
 
+## Getting the package
 
-## Installation
+### :loudspeaker: News: Present natively in Zeek >= 9.0
 
-### Prerequisites
+The IGMP package has been included in the Zeek codebase as of version 9.0,
+so if you run this version or higher,
+you don't have to do anything,
+just profit !
+
+Consult the section [Using the package](#using-the-package) below
+for usage instructions.
+
+
+
+### Installation (Zeek version < 9.0)
+
+#### Prerequisites
 
 Before trying to install the package, make sure you have the following tools installed:
 
@@ -22,7 +35,7 @@ Before trying to install the package, make sure you have the following tools ins
 Everything should be installed correctly if you install the latest [Zeek](https://zeek.org/) version.
 
 
-### Setup
+#### Setup
 
 A simple call to `make install` from the repository's root directory should install the package and run unit tests.
 You can also use the `zkg` command directly:
@@ -52,7 +65,7 @@ the package was correctly installed, and you have access to the IGMP packet anal
 In the case of any installation problems, please check the [Zeek Package Manager](https://docs.zeek.org/projects/package-manager/en/stable/) documentation.
 
 
-## Usage
+## Using the package
 
 Once the Zeek package installed, you will be able to use the IGMP packet analyzer in your Zeek scripts.
 You will have to explicitly load the package scripts in the beginning of your Zeek scripts with the following instruction:
@@ -144,4 +157,4 @@ This project is licensed under the BSD license. See the [LICENSE](LICENSE) file 
 
 - François De Keersmaeker
   - GitHub: [@fdekeers](https://github.com/fdekeers)
-  - Email: francois.dekeersmaeker@uclouvain.be
+  - Email: francois.dekeersmaeker+github@proton.me

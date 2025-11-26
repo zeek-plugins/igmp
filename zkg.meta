@@ -1,5 +1,5 @@
 [package]
-credits = François De Keersmaeker <francois.dekeersmaeker@uclouvain.be>
+credits = François De Keersmaeker <francois.dekeersmaeker+github@proton.me>
 tags = igmp, zeek, spicy, packet analyzer, ids
 script_dir = scripts
 test_command = cd testing && btest -c btest.cfg
